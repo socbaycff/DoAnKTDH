@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Point
 import android.util.AttributeSet
 import android.view.View
+import com.example.doanktdh.vatthe.ConCho
 import com.example.doanktdh.vatthe.ConGau
 import com.example.doanktdh.vatthe.HinhChuNhat
 
@@ -12,8 +13,9 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
     val listVatThe = ArrayList<VatThe>()
     init {
         // add toan bo vat the vao list
-       // listVatThe.add(HinhChuNhat(Point(900,500),200,200))
-        listVatThe.add(ConGau(Point(500,300)))
+
+        listVatThe.add(ConCho(Point(1000,300)))
+        listVatThe.add(ConGau(Point(400,300)))
 
     }
 

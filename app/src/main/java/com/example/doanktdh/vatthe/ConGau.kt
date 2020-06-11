@@ -17,7 +17,6 @@ class ConGau(tam: Point) : VatThe(tam) {
             strokeCap = Paint.Cap.ROUND
         }
     override fun draw(canvas: Canvas) {
-        val gocTrai = Point(tam.x - 417,tam.y - 220)
         val offsetX = tam.x - 417
         val offsetY = tam.y - 220
         // bung
