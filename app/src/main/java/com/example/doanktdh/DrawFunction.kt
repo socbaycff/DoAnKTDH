@@ -2,17 +2,16 @@ package com.example.doanktdh
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Insets.add
 import android.graphics.Paint
 
+/***
+ * chua cac ham ve co ban: duong thang , tron, elipse
+ *
+ */
+
+
 enum class LineMode { DASH, SOLID}
-val paint =
-    Paint().apply {
-        color = Color.RED
-        style = Paint.Style.STROKE
-        strokeWidth = 10f
-        strokeCap = Paint.Cap.ROUND
-    }
+
 
 val putLength = 100
 val unputLength = 50
@@ -31,7 +30,7 @@ val solidPattern = ArrayList<Boolean>(putLength + unputLength).apply {
     }
 
 }
- fun drawLineMidPoint(fromX: Int, fromY: Int, toX: Int, toY: Int,lineMode: LineMode, canvas: Canvas?) { // di tu diem y thap den diem y cao
+ fun drawLineMidPoint(fromX: Int, fromY: Int, toX: Int, toY: Int,lineMode: LineMode,paint: Paint, canvas: Canvas?) { // di tu diem y thap den diem y cao
 
      val startX: Int
      val startY: Int
@@ -128,7 +127,7 @@ val solidPattern = ArrayList<Boolean>(putLength + unputLength).apply {
 }
 
 
-fun drawCircle(radius :Int, x_centre: Int, y_centre: Int,lineMode: LineMode, canvas: Canvas?) {
+fun drawCircle(radius :Int, x_centre: Int, y_centre: Int,lineMode: LineMode,paint: Paint, canvas: Canvas?) {
     var counter = 0
 
     var x: Int = radius
@@ -182,7 +181,7 @@ fun drawCircle(radius :Int, x_centre: Int, y_centre: Int,lineMode: LineMode, can
     }
 }
 
-fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float,lineMode: LineMode, canvas: Canvas?) {
+fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float,lineMode: LineMode,paint: Paint, canvas: Canvas?) {
     var counter = 0
     var d1: Float
     var d2: Float
