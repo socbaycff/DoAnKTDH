@@ -1,14 +1,15 @@
 package com.example.doanktdh.vatthe
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Point
+import android.graphics.*
 import com.example.doanktdh.LineMode
 import com.example.doanktdh.VatThe
+import com.example.doanktdh.drawCircle
 import com.example.doanktdh.drawLineMidPoint
 
-class ConGau(tam: Point) : VatThe(tam) {
+class ConGau(tam: PointF) : VatThe(tam) {
+    fun changeColor(color: Int) {
+        paint.color = color
+    }
     val paint =
         Paint().apply {
             color = Color.RED
@@ -17,8 +18,8 @@ class ConGau(tam: Point) : VatThe(tam) {
             strokeCap = Paint.Cap.ROUND
         }
     override fun draw(canvas: Canvas) {
-        val offsetX = tam.x - 417
-        val offsetY = tam.y - 220
+        val offsetX = (tam.x - 417).toInt()
+        val offsetY = (tam.y - 220).toInt()
         // bung
         drawLineMidPoint(offsetX+ 270,offsetY+ 27,offsetX+317,offsetY+295,LineMode.SOLID,paint, canvas)// 1
         drawLineMidPoint(offsetX+270,offsetY+27,offsetX+482,offsetY+48,LineMode.SOLID,paint,canvas)// 2
@@ -79,6 +80,10 @@ class ConGau(tam: Point) : VatThe(tam) {
         drawLineMidPoint(offsetX+824,offsetY+183,offsetX+800,offsetY+214,LineMode.SOLID,paint,canvas)//47
         drawLineMidPoint(offsetX+800,offsetY+214,offsetX+737,offsetY+196,LineMode.SOLID,paint,canvas)//48
 
+
+
+        // draw vong tron
+        drawCircle(500,tam.x.toInt(),tam.y.toInt(),LineMode.DASH,paint,canvas)
     }
 
 }

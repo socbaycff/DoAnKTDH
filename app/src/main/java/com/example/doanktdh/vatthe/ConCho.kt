@@ -1,15 +1,15 @@
 package com.example.doanktdh.vatthe
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Point
+import android.graphics.*
 import com.example.doanktdh.LineMode
 import com.example.doanktdh.VatThe
+import com.example.doanktdh.drawEllipse
 import com.example.doanktdh.drawLineMidPoint
 
-class ConCho(tam: Point) : VatThe(tam) {
-
+class ConCho(tam: PointF) : VatThe(tam) {
+    fun changeColor(color: Int) {
+        paint.color = color
+    }
     val paint =
         Paint().apply {
             color = Color.RED
@@ -18,8 +18,8 @@ class ConCho(tam: Point) : VatThe(tam) {
             strokeCap = Paint.Cap.ROUND
         }
     override fun draw(canvas: Canvas) {
-        val offsetX = tam.x - 229
-        val offsetY = tam.y - 206
+        val offsetX = (tam.x - 229).toInt()
+        val offsetY = (tam.y - 206).toInt()
         // dau va chan truoc
         drawLineMidPoint(offsetX+ 215,offsetY+158,offsetX+ 178,offsetY+107,LineMode.SOLID,paint,canvas)//1
         drawLineMidPoint(offsetX+ 178,offsetY+107,offsetX+ 150,offsetY+39,LineMode.SOLID,paint,canvas)//2
@@ -61,6 +61,9 @@ class ConCho(tam: Point) : VatThe(tam) {
         drawLineMidPoint(offsetX+ 423,offsetY+150,offsetX+ 394,offsetY+202,LineMode.SOLID,paint,canvas)//36
         drawLineMidPoint(offsetX+ 426,offsetY+34,offsetX+ 423,offsetY+150,LineMode.SOLID,paint,canvas)//37
 
+
+        // ve ellipse
+        drawEllipse(400f,300f,tam.x,tam.y,LineMode.SOLID,paint,canvas)
     }
 
 }
