@@ -11,7 +11,6 @@ import android.graphics.PointF
 import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import com.example.doanktdh.matran.toMatrix
 import com.example.doanktdh.vatthe.ConCho
