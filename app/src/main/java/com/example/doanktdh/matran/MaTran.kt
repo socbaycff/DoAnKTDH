@@ -1,6 +1,5 @@
 package com.example.doanktdh.matran
 
-import android.graphics.Point
 import android.graphics.PointF
 import com.example.doanktdh.Point3D.Point3D
 
@@ -44,13 +43,4 @@ fun PointF.toMatrix(): MaTran {
     }  } )
 }
 
-// point 3d -> matrix
-fun Point3D.toMatrix(): MaTran {
-    return MaTran(Array<FloatArray>(1) {FloatArray(4).apply {
-        this[0] = x.toFloat()
-        this[1] = y.toFloat()
-        this[2] = z.toFloat()
-        this[3] = 1f
-    }  } )
-}
 

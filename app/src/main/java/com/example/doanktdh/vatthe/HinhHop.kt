@@ -32,7 +32,7 @@ class HinhHop(tam: PointF,var dai: Int, var rong: Int, var cao: Int): VatThe(tam
         Paint().apply {
             color = Color.RED
             style = Paint.Style.STROKE
-            strokeWidth = 10f
+            strokeWidth = 5f
             strokeCap = Paint.Cap.ROUND
         }
 

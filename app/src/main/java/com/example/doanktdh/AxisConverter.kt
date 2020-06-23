@@ -10,4 +10,8 @@ object AxisConverter {
         return PointF(pointF.x+ width/2,-pointF.y + heigh/2)
     }
 
+    fun sysToUser(pointF: PointF): PointF {
+        return PointF(pointF.x - width/2,-pointF.y - heigh/2)
+    }
+
 }

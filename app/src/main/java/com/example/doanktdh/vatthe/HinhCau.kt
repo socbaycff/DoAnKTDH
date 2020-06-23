@@ -4,13 +4,19 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
-import com.example.doanktdh.LineMode
-import com.example.doanktdh.VatThe
-import com.example.doanktdh.drawCircle
-import com.example.doanktdh.drawEllipse
+import com.example.doanktdh.*
 
 class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
     val paint =
+        Paint().apply {
+            color = Color.RED
+            style = Paint.Style.STROKE
+            strokeWidth = 5f
+            strokeCap = Paint.Cap.ROUND
+        }
+
+
+    val paintDot =
         Paint().apply {
             color = Color.RED
             style = Paint.Style.STROKE
@@ -22,10 +28,10 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
     override fun draw(canvas: Canvas) {
         // ve hinh tron bao
         drawCircle(radius,tam.x.toInt(),tam.y.toInt(),LineMode.SOLID,paint,canvas)
-
+        canvas.drawPoint(tam.x,tam.y,paintDot)
 
         // ve elipse co truc ngang bang ban kinh
-        drawEllipse(radius.toFloat(),radius/4f,tam.x,tam.y,LineMode.SOLID,paint,canvas)
+        drawEllipseDash(radius.toFloat(),radius/4f,tam.x,tam.y,LineMode.DASH,paint,canvas)
 
 
     }

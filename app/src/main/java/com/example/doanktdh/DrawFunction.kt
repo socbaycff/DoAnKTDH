@@ -13,8 +13,8 @@ import android.graphics.Paint
 enum class LineMode { DASH, SOLID}
 
 
-val putLength = 100
-val unputLength = 50
+val putLength = 20
+val unputLength = 10
 val dashPattern = ArrayList<Boolean>(putLength + unputLength).apply {
     for (index in 1..putLength) {
         add(true)
@@ -180,6 +180,83 @@ fun drawCircle(radius :Int, x_centre: Int, y_centre: Int,lineMode: LineMode,pain
 
     }
 }
+
+fun drawEllipseDash(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float,lineMode: LineMode,paint: Paint, canvas: Canvas?) {
+    var counter = 0
+    var d1: Float
+    var d2: Float
+    var x: Float
+    var y: Float
+    x = 0f
+    y = radius_y
+
+    // choose pattern
+    val pattern: ArrayList<Boolean>
+    when (lineMode) {
+        LineMode.DASH -> pattern = dashPattern
+        LineMode.SOLID -> pattern = solidPattern
+    }
+    // Initial decision parameter of region 1
+    d1 = radius_y * radius_y - radius_x * radius_x * radius_y + 0.25f * radius_x * radius_x
+    var dx = 2 * radius_y * radius_y * x
+    var dy = 2 * radius_x * radius_x * y
+
+    // For region 1
+    while (dx < dy) { // Print points based on 4-way symmetry
+        canvas?.drawPoint(x + center_x, y + center_y, paint)
+        canvas?.drawPoint(-x + center_x, y + center_y, paint)
+
+        if (pattern[counter++ %(pattern.size)]) {
+            canvas?.drawPoint(x + center_x, -y + center_y, paint)
+            canvas?.drawPoint(-x + center_x, -y + center_y, paint)
+        }
+
+
+        // Checking and updating value of decision parameter based on algorithm
+        if (d1 < 0) {
+            x++
+            dx = dx + 2 * radius_y * radius_y
+            d1 = d1 + dx + radius_y * radius_y
+        } else {
+            x++
+            y--
+            dx = dx + 2 * radius_y * radius_y
+            dy = dy - 2 * radius_x * radius_x
+            d1 = d1 + dx - dy + radius_y * radius_y
+        }
+    }
+
+    // Decision parameter of region 2
+    d2 = (radius_y * radius_y * ((x + 0.5f) * (x + 0.5f))
+            + radius_x * radius_x * ((y - 1) * (y - 1))
+            - radius_x * radius_x * radius_y * radius_y)
+
+    // Plotting points of region 2
+    while (y >= 0) { // printing points based on 4-way symmetry
+
+        canvas?.drawPoint(x + center_x, y + center_y, paint)
+        canvas?.drawPoint(-x + center_x, y + center_y, paint)
+
+        if (pattern[counter++ %(pattern.size)]) {
+            canvas?.drawPoint(x + center_x, -y + center_y, paint)
+            canvas?.drawPoint(-x + center_x, -y + center_y, paint)
+        }
+
+        // Checking and updating parameter value based on algorithm
+        if (d2 > 0) {
+            y--
+            dy = dy - 2 * radius_x * radius_x
+            d2 = d2 + radius_x * radius_x - dy
+        } else {
+            y--
+            x++
+            dx = dx + 2 * radius_y * radius_y
+            dy = dy - 2 * radius_x * radius_x
+            d2 = d2 + dx - dy + radius_x * radius_x
+        }
+    }
+}
+
 
 fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float,lineMode: LineMode,paint: Paint, canvas: Canvas?) {
     var counter = 0

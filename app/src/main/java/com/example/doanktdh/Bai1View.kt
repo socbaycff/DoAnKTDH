@@ -18,10 +18,9 @@ import com.example.doanktdh.vatthe.ConGau
 
 
 class Bai1View(context: Context, attributes: AttributeSet): View(context,attributes) {
+    var listener: ((PointF,PointF) -> Unit)? = null
 
 
-
-    val mp: MediaPlayer = MediaPlayer.create(context, R.raw.music)
     val listVatThe = ArrayList<VatThe>()
     val dog = ConCho(PointF(1500f,300f))
     val bear = ConGau(PointF(900f,500f))
@@ -59,12 +58,13 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             bear.tam.y = newBearPoint.y
 
             //update giao dien
+            listener?.invoke(bear.tam,dog.tam)
             postInvalidate()
         }
         va.repeatCount = ValueAnimator.INFINITE
 
             // animate con cho
-        val va2 = ValueAnimator.ofFloat(0f, 180f)
+        val va2 = ValueAnimator.ofFloat(0f, 90f)
         va2.duration = 5000.toLong()
         va2.repeatCount = ValueAnimator.INFINITE
         va2.addUpdateListener { animation ->
@@ -107,8 +107,8 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         val colorTo2 = Color.MAGENTA
         val colorAnimation2 =
             ValueAnimator.ofObject(ArgbEvaluator(), colorFrom2, colorTo2)
-        colorAnimation2.duration = 1000 // milliseconds
         colorAnimation2.repeatCount = ValueAnimator.INFINITE
+        colorAnimation2.duration = 1000 // milliseconds
         colorAnimation2.addUpdateListener { animator ->
             dog.changeColor(animator.animatedValue as Int)
         }
@@ -120,11 +120,13 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         animatorSet.start()
 
 
-        mp.isLooping = true
-        mp.start()
 
 
     }
+
+
+
+
 
 }
 
