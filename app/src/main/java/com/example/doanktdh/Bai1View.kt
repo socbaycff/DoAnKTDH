@@ -64,19 +64,21 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         va.repeatCount = ValueAnimator.INFINITE
 
             // animate con cho
-        val va2 = ValueAnimator.ofFloat(0f, 90f)
+        val va2 = ValueAnimator.ofFloat(0f, 360f)
         va2.duration = 5000.toLong()
         va2.repeatCount = ValueAnimator.INFINITE
         va2.addUpdateListener { animation ->
             val animatedValue: Float = animation.animatedValue as Float
             // toa do tam -> toa do ma tran
             val tamDogMT = dog.tam.toMatrix()
-            val x = bear.tam.x
-            val y = bear.tam.y
+            val a = AxisConverter.width/2f
+            val b = AxisConverter.heigh/2f
+
+
             // thuc hien nhan cac ma tranxyy
-            val mtTinhTien = TwoDTrans.mtTinhTien(-x, -y)
+            val mtTinhTien = TwoDTrans.mtTinhTien(-a, -b)
             val mtXoay = TwoDTrans.mtXoay(animatedValue / 180)
-            val mtTinhTien2 = TwoDTrans.mtTinhTien(x, y)
+            val mtTinhTien2 = TwoDTrans.mtTinhTien(a, b)
 
             val newDogMT = tamDogMT * mtTinhTien * mtXoay * mtTinhTien2
 

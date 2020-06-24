@@ -19,5 +19,8 @@
         android:text="TextView"
         android:textSize="18sp" />
 
-
+    <com.chibde.visualizer.BarVisualizer
+        android:id="@+id/musicvisual"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

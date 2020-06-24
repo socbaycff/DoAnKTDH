@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.doanktdh.vatthe.HinhCau
 import com.example.doanktdh.vatthe.HinhHop
+import kotlin.math.sqrt
 
 
 class Bai2View(context: Context, attributes: AttributeSet): View(context,attributes) {
@@ -50,7 +51,7 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
 
         canvas?.drawLine(AxisConverter.width/2f,AxisConverter.heigh/2f, AxisConverter.width.toFloat(),AxisConverter.heigh/2f,paint)
         canvas?.drawLine(AxisConverter.width/2f,0f, AxisConverter.width/2f,AxisConverter.heigh/2f,paint)
-        canvas?.drawLine(AxisConverter.width/2f,AxisConverter.heigh/2f,AxisConverter.width/2f- height/2 ,AxisConverter.heigh.toFloat(),paint)
+        canvas?.drawLine(AxisConverter.width/2f,AxisConverter.heigh/2f,AxisConverter.width/2f- height/2 - 100 ,AxisConverter.heigh.toFloat(),paint)
         canvas?.drawText("X", width.toFloat() - 50,height/2f + 50,textPain)
         canvas?.drawText("Y", AxisConverter.width/2f- height/2 + 100,height.toFloat() - 50,textPain)
         canvas?.drawText("Z", width/2f + 20,50f,textPain)

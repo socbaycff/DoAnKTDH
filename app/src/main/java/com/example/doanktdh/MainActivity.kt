@@ -1,28 +1,45 @@
 package com.example.doanktdh
 
+import android.Manifest
 import android.content.Intent
-import android.content.res.Resources
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Switch
-import androidx.lifecycle.lifecycleScope
-import com.example.doanktdh.dialog.AddHinhCauDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.chibde.visualizer.BarVisualizer
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
    lateinit var mp: MediaPlayer
      var animateSwitch : MenuItem? = null
     var isAnimate = false
+    lateinit var barVisualizer: BarVisualizer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mp = MediaPlayer.create(applicationContext, R.raw.music)
+        mp = MediaPlayer.create(applicationContext, R.raw.edit)
         mp.isLooping = true
+         barVisualizer = musicvisual
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+            == PackageManager.PERMISSION_GRANTED) {
+            barVisualizer.setPlayer(mp.audioSessionId)
+            barVisualizer.setDensity(100f)
+            barVisualizer.setColor(Color.MAGENTA)
+        } else {
+            ActivityCompat
+                .requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.RECORD_AUDIO),
+                    0);
+        }
+
         bai1View.background = getResources().getDrawable( R.drawable.wall);
        bai1View.listener = { tamgau,tamcho ->
             val tamGau = AxisConverter.sysToUser(tamgau)
@@ -32,6 +49,17 @@ class MainActivity : AppCompatActivity() {
        }
     }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        barVisualizer.setPlayer(mp.audioSessionId)
+        barVisualizer.setDensity(100f)
+        barVisualizer.setColor(Color.MAGENTA)
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
     override fun onPause() {
         super.onPause()
         mp.stop()

@@ -26,12 +26,12 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
 
 
     override fun draw(canvas: Canvas) {
-        // ve hinh tron bao
-        drawCircle(radius,tam.x.toInt(),tam.y.toInt(),LineMode.SOLID,paint,canvas)
+        // ve hinh tron bao quanh
+        drawCircle(radius*AxisConverter.doRongPixel,tam.x.toInt(),tam.y.toInt(),LineMode.SOLID,paint,canvas)
         canvas.drawPoint(tam.x,tam.y,paintDot)
 
         // ve elipse co truc ngang bang ban kinh
-        drawEllipseDash(radius.toFloat(),radius/4f,tam.x,tam.y,LineMode.DASH,paint,canvas)
+        drawEllipseDash(radius*AxisConverter.doRongPixel.toFloat(),radius*AxisConverter.doRongPixel/4f,tam.x,tam.y,LineMode.DASH,paint,canvas)
 
 
     }
