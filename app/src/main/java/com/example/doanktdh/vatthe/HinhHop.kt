@@ -21,7 +21,7 @@ class HinhHop(tam: PointF,var dai: Int, var rong: Int, var cao: Int): VatThe(tam
     var h: Point
     init {
         a = tam.toPoint()
-        val offset = (dai*AxisConverter.doRongPixel* sqrt(2f)/4).toInt()
+        val offset = (dai*AxisConverter.doRongPixel/4)
        // val offset = dai/2
         b = Point(a.x + rong*AxisConverter.doRongPixel,a.y)
         c = Point(b.x + offset , b.y - offset)

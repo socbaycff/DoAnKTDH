@@ -9,8 +9,8 @@ import kotlin.math.sqrt
 
 fun Point3D.threeToTwoD(): PointF {
     // chieu cabinet
-    val xTemp = x - y* sqrt(2f) /4
-    val yTemp = z - y* sqrt(2f) /4
+    val xTemp = x - y* 1/4
+    val yTemp = z - y* 1/4
     return PointF(xTemp,yTemp)
 }
 
