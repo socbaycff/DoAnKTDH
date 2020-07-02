@@ -9,11 +9,11 @@ object AxisConverter {
     var width = 0
     var heigh = 0
     const val doRongPixel = 20
-    fun userToSys(pointF: PointF): PointF {
+    fun userToSys(pointF: PointF): PointF {// user -> may tinh
         return PointF(pointF.x* doRongPixel + width /2,-pointF.y* doRongPixel + heigh /2)
     }
 
-    fun sysToUser(pointF: PointF): PointF {
+    fun sysToUser(pointF: PointF): PointF { // may tinh -> user
         return PointF(pointF.x/ doRongPixel - width /2,-pointF.y/ doRongPixel - heigh /2)
     }
 

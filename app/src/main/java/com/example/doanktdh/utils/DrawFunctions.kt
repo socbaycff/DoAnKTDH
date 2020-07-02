@@ -113,12 +113,15 @@ fun drawLineMidPoint(
             P = dy - dx / 2
             while (x < endX) {
                 x++
-                if (P < 0) P += dy else {
+                if (P < 0) {
+                    P += dy
+                } else {
                     P += dy - dx
                     y++
                 }
+                // chấm điểm
                 if (pattern[counter++ % (pattern.size)]) {
-                    canvas?.drawPoint(x, y, paint)
+                    canvas?.drawPoint(x, y, paint) // chấm điểm dựa theo xy
                 }
             }
         } else {    // trường hợp lớn hơn 45 độ: y đổi liên tục, x đổi có điều kiện
@@ -159,22 +162,10 @@ fun drawCircle(
     val xcenter = x_centre.toFloat()
     val ycenter = y_centre.toFloat()
 
-
-
-
     val pattern: ArrayList<Boolean> = when (lineMode) {
         LineMode.DASH -> dashPattern
         LineMode.SOLID -> solidPattern
     }
-
-    // chấm 4 điểm
-//    canvas?.drawPoint(x + x_centre.toFloat(), y + y_centre.toFloat(), paint)
-//    if (radius > 0)
-//    {
-//        canvas?.drawPoint(x + x_centre.toFloat(), -y + y_centre.toFloat(), paint)
-//        canvas?.drawPoint(y + x_centre.toFloat(), x + y_centre.toFloat(), paint) // diem  duoi cung cua dt
-//        canvas?.drawPoint(-y + x_centre.toFloat(), x + y_centre.toFloat(), paint) // diem tren cung
-//    }
 
 
     // Khởi tạo P
@@ -192,7 +183,7 @@ fun drawCircle(
         }
 
         // đối xứng 8 vùng để chấm điểm
-        if (pattern[counter++ % (pattern.size)]) {
+        if (pattern[counter++ % (pattern.size)]) { // ve theo mau net
 
             canvas?.drawPoint(x + xcenter, y + ycenter, paint)
             canvas?.drawPoint(-x + xcenter, y + ycenter, paint)
@@ -317,7 +308,7 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
     y = radius_y
 
 
-    // choose pattern
+
     val pattern: ArrayList<Boolean>
     when (lineMode) {
         LineMode.DASH -> pattern =
@@ -326,12 +317,12 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
             solidPattern
     }
 
-    // Initial decision parameter of region 1
+
     d1 = radius_y * radius_y - radius_x * radius_x * radius_y + 0.25f * radius_x * radius_x
     var dx = 2 * radius_y * radius_y * x
     var dy = 2 * radius_x * radius_x * y
 
-    // For region 1
+
     while (dx < dy) { // Print points based on 4-way symmetry
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
@@ -342,7 +333,7 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
         }
 
 
-        // Checking and updating value of decision parameter based on algorithm
+
         if (d1 < 0) {
             x++
             dx = dx + 2 * radius_y * radius_y
@@ -356,13 +347,13 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
         }
     }
 
-    // Decision parameter of region 2
+
     d2 = (radius_y * radius_y * ((x + 0.5f) * (x + 0.5f))
             + radius_x * radius_x * ((y - 1) * (y - 1))
             - radius_x * radius_x * radius_y * radius_y)
 
-    // Plotting points of region 2
-    while (y >= 0) { // printing points based on 4-way symmetry
+
+    while (y >= 0) {
 
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
@@ -372,7 +363,7 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
             canvas?.drawPoint(-x + center_x, -y + center_y, paint)
         }
 
-        // Checking and updating parameter value based on algorithm
+
         if (d2 > 0) {
             y--
             dy = dy - 2 * radius_x * radius_x

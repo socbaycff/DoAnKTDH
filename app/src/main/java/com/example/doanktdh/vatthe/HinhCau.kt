@@ -38,7 +38,7 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
             paint,
             canvas
         )
-        canvas.drawPoint(tam.x,tam.y,paintDot)
+        canvas.drawPoint(tam.x,tam.y,paintDot) // cham diem tam
 
         // ve elipse co truc ngang bang ban kinh
         drawEllipseDash(
