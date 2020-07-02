@@ -17,6 +17,7 @@ import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.matran.toMatrix
 import com.example.doanktdh.vatthe.ConCho
 import com.example.doanktdh.vatthe.ConGau
+import com.example.doanktdh.vatthe.Wave
 
 
 class Bai1View(context: Context, attributes: AttributeSet): View(context,attributes) {
@@ -26,16 +27,16 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
     val listVatThe = ArrayList<VatThe>()
     val dog = ConCho(PointF(1500f,300f))
     val bear = ConGau(PointF(900f,500f))
+    val wave = Wave(PointF(500f,1000f),1)
     init {
         // add toan bo vat the vao list
         listVatThe.add(dog)
         listVatThe.add(bear)
-
+        listVatThe.add(wave)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
         listVatThe.forEach {
             it.draw(canvas!!)
         }
@@ -92,7 +93,7 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             dog.tam.y = newDogPoint.y
 
             //update giao dien
-            postInvalidate()
+         //   postInvalidate()
         }
 
 
@@ -119,9 +120,20 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             dog.changeColor(animator.animatedValue as Int)
         }
 
+        // animate song am
+        val va3 = ValueAnimator.ofInt(0, 20)
+        va3.duration = 2000.toLong()
+        va3.repeatCount = ValueAnimator.INFINITE
+        va3.addUpdateListener { animation ->
+            val animatedValue = animation.animatedValue as Int
+            wave.waveCount = animatedValue
+
+            //update giao dien
+         //   postInvalidate()
+        }
 
         val animatorSet = AnimatorSet()
-        animatorSet.play(va2).with(va).with(colorAnimation).with(colorAnimation2)
+        animatorSet.play(va2).with(va).with(colorAnimation).with(colorAnimation2).with(va3)
         animatorSet.interpolator = LinearInterpolator()
         animatorSet.start()
 
