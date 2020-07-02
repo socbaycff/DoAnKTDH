@@ -4,7 +4,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
-import com.example.doanktdh.*
+import com.example.doanktdh.utils.AxisConverter
+import com.example.doanktdh.utils.LineMode
+import com.example.doanktdh.utils.drawCircle
+import com.example.doanktdh.utils.drawEllipseDash
 
 class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
     val paint =
@@ -27,11 +30,26 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
 
     override fun draw(canvas: Canvas) {
         // ve hinh tron bao quanh
-        drawCircle(radius*AxisConverter.doRongPixel,tam.x.toInt(),tam.y.toInt(),LineMode.SOLID,paint,canvas)
+        drawCircle(
+            radius * AxisConverter.doRongPixel,
+            tam.x.toInt(),
+            tam.y.toInt(),
+            LineMode.SOLID,
+            paint,
+            canvas
+        )
         canvas.drawPoint(tam.x,tam.y,paintDot)
 
         // ve elipse co truc ngang bang ban kinh
-        drawEllipseDash(radius*AxisConverter.doRongPixel.toFloat(),radius*AxisConverter.doRongPixel/4f,tam.x,tam.y,LineMode.DASH,paint,canvas)
+        drawEllipseDash(
+            radius * AxisConverter.doRongPixel.toFloat(),
+            radius * AxisConverter.doRongPixel / 4f,
+            tam.x,
+            tam.y,
+            LineMode.DASH,
+            paint,
+            canvas
+        )
 
 
     }

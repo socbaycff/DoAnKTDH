@@ -1,4 +1,4 @@
-package com.example.doanktdh
+package com.example.doanktdh.customview
 
 
 import android.animation.AnimatorSet
@@ -8,10 +8,12 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PointF
-import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.example.doanktdh.utils.AxisConverter
+import com.example.doanktdh.utils.TwoDTrans
+import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.matran.toMatrix
 import com.example.doanktdh.vatthe.ConCho
 import com.example.doanktdh.vatthe.ConGau
@@ -49,7 +51,8 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val tamBearMT = bear.tam.toMatrix()
 
             // thuc hien nhan cac ma tran
-            val mtTinhTien = TwoDTrans.mtTinhTien(animatedValue, 0f)
+            val mtTinhTien =
+                TwoDTrans.mtTinhTien(animatedValue, 0f)
             val newDogMT = tamBearMT * mtTinhTien
 
             // ma tran -> toa do tam
@@ -71,13 +74,14 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val animatedValue: Float = animation.animatedValue as Float
             // toa do tam -> toa do ma tran
             val tamDogMT = dog.tam.toMatrix()
-            val a = AxisConverter.width/2f
-            val b = AxisConverter.heigh/2f
+            val a = AxisConverter.width /2f
+            val b = AxisConverter.heigh /2f
 
 
             // thuc hien nhan cac ma tranxyy
             val mtTinhTien = TwoDTrans.mtTinhTien(-a, -b)
-            val mtXoay = TwoDTrans.mtXoay(animatedValue / 180)
+            val mtXoay =
+                TwoDTrans.mtXoay(animatedValue / 180)
             val mtTinhTien2 = TwoDTrans.mtTinhTien(a, b)
 
             val newDogMT = tamDogMT * mtTinhTien * mtXoay * mtTinhTien2

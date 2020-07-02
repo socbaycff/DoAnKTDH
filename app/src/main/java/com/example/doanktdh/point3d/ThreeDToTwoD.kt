@@ -1,7 +1,6 @@
-package com.example.doanktdh.Point3D
+package com.example.doanktdh.point3d
 
 import android.graphics.PointF
-import kotlin.math.sqrt
 
 /**
  * phep chieu 3d -> 2d

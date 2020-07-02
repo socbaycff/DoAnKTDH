@@ -1,9 +1,9 @@
 package com.example.doanktdh.matran
 
 import android.graphics.PointF
-import com.example.doanktdh.Point3D.Point3D
 
-class MaTran(var matrix: Array<FloatArray>) { // x,y,1 or x,y,z,1
+class MaTran(var matrix: Array<FloatArray>) { // x,y,1
+    // nhan ma tran
     operator fun times(maTran: MaTran) : MaTran{
         val other = maTran.matrix
         val r1 = matrix.size
@@ -20,16 +20,11 @@ class MaTran(var matrix: Array<FloatArray>) { // x,y,1 or x,y,z,1
         return MaTran(product)
     }
 
+    // chuyển matran sang point
     fun toPoint(): PointF {
         val row1 = matrix[0]
         return PointF(row1[0],row1[1])
     }
-
-    fun toPoint3D(): Point3D {
-        val row1 = matrix[0]
-        return Point3D(row1[0],row1[1],row1[2])
-    }
-
 
 
 
@@ -37,8 +32,8 @@ class MaTran(var matrix: Array<FloatArray>) { // x,y,1 or x,y,z,1
 // point 2d -> matrix
 fun PointF.toMatrix(): MaTran {
     return MaTran(Array<FloatArray>(1) {FloatArray(3).apply {
-        this[0] = x.toFloat()
-        this[1] = y.toFloat()
+        this[0] = x
+        this[1] = y
         this[2] = 1f
     }  } )
 }

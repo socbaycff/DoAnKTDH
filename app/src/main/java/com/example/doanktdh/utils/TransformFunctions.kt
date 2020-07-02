@@ -1,4 +1,4 @@
-package com.example.doanktdh
+package com.example.doanktdh.utils
 
 import com.example.doanktdh.matran.MaTran
 import kotlin.math.cos
@@ -24,7 +24,7 @@ object TwoDTrans {
 
     }
 
-    // xoay 1 goc quay diem
+    // xoay 1 goc angle
     fun mtXoay(angle: Float): MaTran {
         return MaTran(Array<FloatArray>(3) {FloatArray(3)} ).apply {
             val goc = angle.toFloat()

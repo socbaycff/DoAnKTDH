@@ -1,4 +1,4 @@
-package com.example.doanktdh
+package com.example.doanktdh.customview
 
 
 import android.content.Context
@@ -8,9 +8,10 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
+import com.example.doanktdh.utils.AxisConverter
+import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.vatthe.HinhCau
 import com.example.doanktdh.vatthe.HinhHop
-import kotlin.math.sqrt
 
 
 class Bai2View(context: Context, attributes: AttributeSet): View(context,attributes) {
@@ -32,14 +33,16 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
     }
 
     fun addHinhHop(tam: PointF, dai: Int, rong: Int, cao: Int) {
-        val point = AxisConverter.userToSys(tam) // doi truc toa do man hinh
+        val point =
+            AxisConverter.userToSys(tam) // doi truc toa do man hinh
         listVatThe.add(HinhHop(point,dai,rong,cao))
         postInvalidate()
 
     }
 
     fun addHinhCau(tam: PointF, radius: Int) {
-        val point = AxisConverter.userToSys(tam) // doi truc toa do man hinh
+        val point =
+            AxisConverter.userToSys(tam) // doi truc toa do man hinh
         listVatThe.add(HinhCau(point,radius))
         postInvalidate()
 
@@ -49,13 +52,23 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
         super.onDraw(canvas)
         // ve truc x, y,z
 
-        canvas?.drawLine(AxisConverter.width/2f,AxisConverter.heigh/2f, AxisConverter.width.toFloat(),AxisConverter.heigh/2f,paint)
-        canvas?.drawLine(AxisConverter.width/2f,0f, AxisConverter.width/2f,AxisConverter.heigh/2f,paint)
-        canvas?.drawLine(AxisConverter.width/2f,AxisConverter.heigh/2f,AxisConverter.width/2f- height/2 - 90 ,AxisConverter.heigh.toFloat(),paint)
+        canvas?.drawLine(
+            AxisConverter.width /2f,
+            AxisConverter.heigh /2f, AxisConverter.width.toFloat(),
+            AxisConverter.heigh /2f,paint)
+        canvas?.drawLine(
+            AxisConverter.width /2f,0f, AxisConverter.width /2f,
+            AxisConverter.heigh /2f,paint)
+        canvas?.drawLine(
+            AxisConverter.width /2f,
+            AxisConverter.heigh /2f,
+            AxisConverter.width /2f- height/2 - 90 ,
+            AxisConverter.heigh.toFloat(),paint)
         canvas?.drawText("X", width.toFloat() - 50,height/2f + 50,textPain)
-        canvas?.drawText("Y", AxisConverter.width/2f- height/2 + 100,height.toFloat() - 50,textPain)
+        canvas?.drawText("Y", AxisConverter.width /2f- height/2 + 100,height.toFloat() - 50,textPain)
         canvas?.drawText("Z", width/2f + 20,50f,textPain)
-        canvas?.drawText("O", AxisConverter.width/2f + 10,AxisConverter.heigh/2f - 10,textPain)
+        canvas?.drawText("O", AxisConverter.width /2f + 10,
+            AxisConverter.heigh /2f - 10,textPain)
         listVatThe.forEach {
             it.draw(canvas!!)
         }

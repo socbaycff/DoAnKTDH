@@ -4,23 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Bai2Activity">
 
-    <com.example.doanktdh.Bai1View
-        android:id="@+id/bai1View"
+    <com.example.doanktdh.customview.Bai2View
+        android:id="@+id/bai2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-/>
+        android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/textViewMain"
+        android:id="@+id/main2Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="18sp" />
-
-    <com.chibde.visualizer.BarVisualizer
-        android:id="@+id/musicvisual"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:text="sample"
+        android:textSize="14sp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
