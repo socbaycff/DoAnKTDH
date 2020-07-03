@@ -14,8 +14,8 @@ import android.graphics.Paint
 enum class LineMode { DASH, SOLID }
 
 val pixelSpacing = 5 // khoang cach cộng trừ pixel
-val putLength = 20
-val unputLength = 10
+val putLength = 10
+val unputLength = 5
 val dashPattern = ArrayList<Boolean>(putLength + unputLength).apply {
     for (index in 1..putLength) {
         add(true)
@@ -283,7 +283,7 @@ fun drawEllipseDash(
             P2 += 2 * ry * ry * x - 2 * rx * rx * y + rx * rx
         }
         y -= pixelSpacing
-    } while (y != 0f)
+    } while (y <= 0f)
 }
 
 
