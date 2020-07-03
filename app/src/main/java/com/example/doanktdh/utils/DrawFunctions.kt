@@ -13,7 +13,7 @@ import android.graphics.Paint
 // 2 loai net ve : net dut, net thang
 enum class LineMode { DASH, SOLID }
 
-
+val pixelSpacing = 5 // khoang cach cộng trừ pixel
 val putLength = 20
 val unputLength = 10
 val dashPattern = ArrayList<Boolean>(putLength + unputLength).apply {
@@ -82,10 +82,10 @@ fun drawLineMidPoint(
         if (Math.abs(dx) > Math.abs(dy)) { // trường hợp bé hơn 45 độ: x đổi liên tục , y đổi có điều kiện
             P = -dy - dx / 2
             while (x > endX) {
-                x--
+                x -= pixelSpacing
                 if (P > 0) P -= dy else {
                     P += -dy - dx
-                    y++
+                    y += pixelSpacing
                 }
 
                 if (pattern[counter++ % (pattern.size)]) {
@@ -96,10 +96,10 @@ fun drawLineMidPoint(
         } else {  // trường hợp lớn hơn 45 độ: y đổi liên tục, x đổi có điều kiện
             P = -dx - dy / 2
             while (y < endY) {
-                y++
+                y += pixelSpacing
                 if (P < 0) P -= dx else {
                     P += -dx - dy
-                    x--
+                    x -= pixelSpacing
                 }
                 if (pattern[counter++ % (pattern.size)]) {
                     canvas?.drawPoint(x, y, paint)
@@ -112,12 +112,12 @@ fun drawLineMidPoint(
         if (Math.abs(dx) > Math.abs(dy)) {// trường hợp bé hơn 45 độ: x đổi liên tục , y đổi có điều kiện
             P = dy - dx / 2
             while (x < endX) {
-                x++
+                x += pixelSpacing
                 if (P < 0) {
                     P += dy
                 } else {
                     P += dy - dx
-                    y++
+                    y += pixelSpacing
                 }
                 // chấm điểm
                 if (pattern[counter++ % (pattern.size)]) {
@@ -127,10 +127,10 @@ fun drawLineMidPoint(
         } else {    // trường hợp lớn hơn 45 độ: y đổi liên tục, x đổi có điều kiện
             P = dx - dy / 2
             while (y < endY) {
-                y++
+                y += pixelSpacing
                 if (P < 0) P += dx else {
                     P += dx - dy
-                    x++
+                    x += pixelSpacing
                 }
                 if (pattern[counter++ % (pattern.size)]) {
                     canvas?.drawPoint(x, y, paint)
@@ -175,10 +175,10 @@ fun drawCircle(
     var y = 0
 
     while (x > y) { // vẽ tới khi x = y ( điểm x = y là điểm kết thúc)
-        y++
+        y += pixelSpacing
         // giải thuật midpoint tính toán điều kiện giảm x
         if (P <= 0) P += 2 * y + 1 else {
-            x--
+            x -= pixelSpacing
             P += 2 * y - 2 * x + 1
         }
 
@@ -211,8 +211,8 @@ fun drawCircle(
  * vùng 2: đi từ điểm giữa ellipse bên phải trên đến điểm ngoài cùng bên phải
  */
 fun drawEllipseDash(
-    radius_x: Float,
-    radius_y: Float,
+    rx: Float,
+    ry: Float,
     center_x: Float,
     center_y: Float,
     lineMode: LineMode,
@@ -231,18 +231,15 @@ fun drawEllipseDash(
     }
 
     // Khởi tạo các biến cho vùng 1
-    // P1 = y^2  + (1/4)(x^2) - (x^2)y
-    var P1 = radius_y * radius_y + 0.25f * radius_x * radius_x - radius_x * radius_x * radius_y
+    var P1 = ry * ry + 0.25f * rx * rx - rx * rx * ry
 
     // điểm bắt đầu của đường ellipse là trên cùng của hình (0,radius_y)
     var x: Float = 0f
-    var y: Float = radius_y
+    var y: Float = ry
 
-    var dx = 2 * radius_y * radius_y * x
-    var dy = 2 * radius_x * radius_x * y
 
     // vòng while vẽ vùng 1
-    while (dx < dy) {
+    do {
         // vẽ đối xừng 4 vùng
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
@@ -254,25 +251,21 @@ fun drawEllipseDash(
 
         // thuật toán midpoint vẽ ellipse: điều chỉnh x, y , P1, dx,dy
         if (P1 < 0) {
-            x++
-            dx = dx + 2 * radius_y * radius_y
-            P1 = P1 + dx + radius_y * radius_y
+            P1 += 2 * ry * ry * x + ry * ry
         } else {
-            x++
-            y--
-            dx = dx + 2 * radius_y * radius_y
-            dy = dy - 2 * radius_x * radius_x
-            P1 = P1 + dx - dy + radius_y * radius_y
+            y -= pixelSpacing
+            P1 += 2 * ry * ry * x - 2 * rx * rx * y + ry * ry
         }
-    }
+        x += pixelSpacing
+    } while (2 * ry * ry * x < 2 * rx * rx * y)
 
     // Khởi tạo các biến cho vùng 2
-    var P2 = (radius_y * radius_y * ((x + 0.5f) * (x + 0.5f))
-            + radius_x * radius_x * ((y - 1) * (y - 1))
-            - radius_x * radius_x * radius_y * radius_y)
+    var P2 = (ry * ry * ((x + 0.5f) * (x + 0.5f))
+            + rx * rx * ((y - 1) * (y - 1))
+            - rx * rx * ry * ry)
 
     // vòng while vẽ vùng 2
-    while (y >= 0) {
+    do {
         // vẽ đối xừng 4 vùng
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
@@ -284,31 +277,25 @@ fun drawEllipseDash(
 
         // thuật toán midpoint vẽ ellipse: điều chỉnh x, y , P2, dx,dy
         if (P2 > 0) {
-            y--
-            dy = dy - 2 * radius_x * radius_x
-            P2 = P2 + radius_x * radius_x - dy
+            P2 += rx * rx - 2 * rx * rx * y
         } else {
-            y--
-            x++
-            dx = dx + 2 * radius_y * radius_y
-            dy = dy - 2 * radius_x * radius_x
-            P2 = P2 + dx - dy + radius_x * radius_x
+            x += pixelSpacing
+            P2 += 2 * ry * ry * x - 2 * rx * rx * y + rx * rx
         }
-    }
+        y -= pixelSpacing
+    } while (y != 0f)
 }
 
 
-fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Float, lineMode: LineMode, paint: Paint, canvas: Canvas?) {
-    var counter = 0
-    var d1: Float
-    var d2: Float
-    var x: Float
-    var y: Float
-    x = 0f
-    y = radius_y
-
-
-
+fun drawEllipse(
+    rx: Float,
+    ry: Float,
+    center_x: Float,
+    center_y: Float,
+    lineMode: LineMode,
+    paint: Paint,
+    canvas: Canvas?
+) {
     val pattern: ArrayList<Boolean>
     when (lineMode) {
         LineMode.DASH -> pattern =
@@ -317,65 +304,56 @@ fun drawEllipse(radius_x: Float, radius_y: Float, center_x: Float, center_y: Flo
             solidPattern
     }
 
+    // Khởi tạo các biến cho vùng 1
+    // P1 = y^2  + (1/4)(x^2) - (x^2)y
+    var P1 = ry * ry + 0.25f * rx * rx - rx * rx * ry
 
-    d1 = radius_y * radius_y - radius_x * radius_x * radius_y + 0.25f * radius_x * radius_x
-    var dx = 2 * radius_y * radius_y * x
-    var dy = 2 * radius_x * radius_x * y
+    // điểm bắt đầu của đường ellipse là trên cùng của hình (0,radius_y)
+    var x: Float = 0f
+    var y: Float = ry
 
-
-    while (dx < dy) { // Print points based on 4-way symmetry
+    // vòng while vẽ vùng 1
+    do {
+        // vẽ đối xừng 4 vùng
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
-
-        if (pattern[counter++ %(pattern.size)]) {
-            canvas?.drawPoint(x + center_x, -y + center_y, paint)
-            canvas?.drawPoint(-x + center_x, -y + center_y, paint)
-        }
+        canvas?.drawPoint(x + center_x, -y + center_y, paint)
+        canvas?.drawPoint(-x + center_x, -y + center_y, paint)
 
 
-
-        if (d1 < 0) {
-            x++
-            dx = dx + 2 * radius_y * radius_y
-            d1 = d1 + dx + radius_y * radius_y
+        // thuật toán midpoint vẽ ellipse: điều chỉnh x, y , P1, dx,dy
+        if (P1 < 0) {
+            P1 += 2 * ry * ry * x + ry * ry
         } else {
-            x++
-            y--
-            dx = dx + 2 * radius_y * radius_y
-            dy = dy - 2 * radius_x * radius_x
-            d1 = d1 + dx - dy + radius_y * radius_y
+            y -= pixelSpacing
+            P1 += 2 * ry * ry * x - 2 * rx * rx * y + ry * ry
         }
-    }
+        x += pixelSpacing
+    } while (2 * ry * ry * x < 2 * rx * rx * y)
 
+    // Khởi tạo các biến cho vùng 2
+    var P2 = (ry * ry * ((x + 0.5f) * (x + 0.5f))
+            + rx * rx * ((y - 1) * (y - 1))
+            - rx * rx * ry * ry)
 
-    d2 = (radius_y * radius_y * ((x + 0.5f) * (x + 0.5f))
-            + radius_x * radius_x * ((y - 1) * (y - 1))
-            - radius_x * radius_x * radius_y * radius_y)
-
-
-    while (y >= 0) {
-
+    // vòng while vẽ vùng 2
+    do {
+        // vẽ đối xừng 4 vùng
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
-
-        if (pattern[counter++ %(pattern.size)]) {
-            canvas?.drawPoint(x + center_x, -y + center_y, paint)
-            canvas?.drawPoint(-x + center_x, -y + center_y, paint)
-        }
+        canvas?.drawPoint(x + center_x, -y + center_y, paint)
+        canvas?.drawPoint(-x + center_x, -y + center_y, paint)
 
 
-        if (d2 > 0) {
-            y--
-            dy = dy - 2 * radius_x * radius_x
-            d2 = d2 + radius_x * radius_x - dy
+        // thuật toán midpoint vẽ ellipse: điều chỉnh x, y , P2, dx,dy
+        if (P2 > 0) {
+            P2 += rx * rx - 2 * rx * rx * y
         } else {
-            y--
-            x++
-            dx = dx + 2 * radius_y * radius_y
-            dy = dy - 2 * radius_x * radius_x
-            d2 = d2 + dx - dy + radius_x * radius_x
+            x += pixelSpacing
+            P2 += 2 * ry * ry * x - 2 * rx * rx * y + rx * rx
         }
-    }
+        y -= pixelSpacing
+    } while (y != 0f)
 }
 
 

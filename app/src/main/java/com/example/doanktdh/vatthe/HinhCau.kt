@@ -31,7 +31,7 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
     override fun draw(canvas: Canvas) {
         // ve hinh tron bao quanh
         drawCircle(
-            radius * AxisConverter.doRongPixel,
+            radius * AxisConverter.doRongDonVi,
             tam.x.toInt(),
             tam.y.toInt(),
             LineMode.SOLID,
@@ -42,8 +42,8 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
 
         // ve elipse co truc ngang bang ban kinh
         drawEllipseDash(
-            radius * AxisConverter.doRongPixel.toFloat(),
-            radius * AxisConverter.doRongPixel / 4f,
+            radius * AxisConverter.doRongDonVi.toFloat(),
+            radius * AxisConverter.doRongDonVi / 4f,
             tam.x,
             tam.y,
             LineMode.DASH,

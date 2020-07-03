@@ -5,6 +5,7 @@ import androidx.core.graphics.toPoint
 import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.utils.LineMode
 import com.example.doanktdh.utils.drawLineMidPoint
+import kotlin.math.sqrt
 
 class HinhHop(tam: PointF,var dai: Int, var rong: Int, var cao: Int): VatThe(tam) {
 
@@ -19,16 +20,16 @@ class HinhHop(tam: PointF,var dai: Int, var rong: Int, var cao: Int): VatThe(tam
     var h: Point
     init {
         a = tam.toPoint()
-        val offset = (AxisConverter.doRongPixel*dai* 1/4)
+        val offset = (AxisConverter.doRongDonVi*dai* sqrt(2f)/(4)).toInt()
 
-        b = Point(a.x + rong* AxisConverter.doRongPixel  ,   a.y)
+        b = Point(a.x + rong* AxisConverter.doRongDonVi  ,   a.y)
         c = Point(b.x + offset , b.y - offset)
         d = Point(a.x + offset, a.y - offset)
 
-        e = Point(a.x,a.y-cao* AxisConverter.doRongPixel)
-        f = Point(b.x,b.y-cao* AxisConverter.doRongPixel)
-        h = Point(c.x,c.y-cao* AxisConverter.doRongPixel)
-        g = Point(d.x,d.y-cao* AxisConverter.doRongPixel)
+        e = Point(a.x,a.y-cao* AxisConverter.doRongDonVi)
+        f = Point(b.x,b.y-cao* AxisConverter.doRongDonVi)
+        h = Point(c.x,c.y-cao* AxisConverter.doRongDonVi)
+        g = Point(d.x,d.y-cao* AxisConverter.doRongDonVi)
     }
     val paint =
         Paint().apply {

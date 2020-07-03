@@ -3,6 +3,7 @@ package com.example.doanktdh.vatthe
 import android.graphics.*
 import com.example.doanktdh.utils.LineMode
 import com.example.doanktdh.utils.drawEllipse
+import com.example.doanktdh.utils.drawEllipseDash
 import com.example.doanktdh.utils.drawLineMidPoint
 
 class ConCho(tam: PointF) : VatThe(tam) {

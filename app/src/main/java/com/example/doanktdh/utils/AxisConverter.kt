@@ -8,13 +8,13 @@ import android.graphics.PointF
 object AxisConverter {
     var width = 0
     var heigh = 0
-    const val doRongPixel = 20
+    const val doRongDonVi = 5
     fun userToSys(pointF: PointF): PointF {// user -> may tinh
-        return PointF(pointF.x* doRongPixel + width /2,-pointF.y* doRongPixel + heigh /2)
+        return PointF(pointF.x* doRongDonVi + width /2,-pointF.y* doRongDonVi + heigh /2)
     }
 
     fun sysToUser(pointF: PointF): PointF { // may tinh -> user
-        return PointF(pointF.x/ doRongPixel - width /2,-pointF.y/ doRongPixel - heigh /2)
+        return PointF(pointF.x/ doRongDonVi - width /2,-pointF.y/ doRongDonVi - heigh /2)
     }
 
 }
