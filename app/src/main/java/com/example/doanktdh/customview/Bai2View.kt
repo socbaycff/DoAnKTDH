@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
+import com.example.doanktdh.point3d.Point3D
 import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.vatthe.HinhCau
@@ -32,10 +33,8 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
         strokeCap = Paint.Cap.ROUND
     }
 
-    fun addHinhHop(tam: PointF, dai: Int, rong: Int, cao: Int) {
-        val point =
-            AxisConverter.userToSys(tam) // doi truc toa do man hinh
-        listVatThe.add(HinhHop(point,dai,rong,cao))
+    fun addHinhHop(tam: Point3D, dai: Int, rong: Int, cao: Int) {
+        listVatThe.add(HinhHop(tam,dai,rong,cao))
         postInvalidate()
 
     }

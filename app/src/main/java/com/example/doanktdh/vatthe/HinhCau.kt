@@ -8,6 +8,7 @@ import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.utils.LineMode
 import com.example.doanktdh.utils.drawCircle
 import com.example.doanktdh.utils.drawEllipseDash
+import kotlin.math.sqrt
 
 class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
     val paint =
@@ -43,7 +44,7 @@ class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
         // ve elipse co truc ngang bang ban kinh
         drawEllipseDash(
             radius * AxisConverter.doRongDonVi.toFloat(),
-            radius * AxisConverter.doRongDonVi / 4f,
+            radius * AxisConverter.doRongDonVi* sqrt(2f) / 4,
             tam.x,
             tam.y,
             LineMode.DASH,

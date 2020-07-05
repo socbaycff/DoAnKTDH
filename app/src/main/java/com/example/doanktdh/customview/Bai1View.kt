@@ -23,7 +23,6 @@ import com.example.doanktdh.vatthe.Wave
 class Bai1View(context: Context, attributes: AttributeSet): View(context,attributes) {
     var listener: ((PointF,PointF) -> Unit)? = null
 
-
     val listVatThe = ArrayList<VatThe>()
     val dog = ConCho(PointF(1500f,300f))
     val bear = ConGau(PointF(900f,500f))
@@ -50,17 +49,14 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val animatedValue: Float = animation.animatedValue as Float
             // toa do tam -> toa do ma tran
             val tamBearMT = bear.tam.toMatrix()
-
             // thuc hien nhan cac ma tran
             val mtTinhTien =
                 TwoDTrans.mtTinhTien(animatedValue, 0f)
             val newDogMT = tamBearMT * mtTinhTien
-
             // ma tran -> toa do tam
             val newBearPoint = newDogMT.toPoint()
             bear.tam.x = newBearPoint.x
             bear.tam.y = newBearPoint.y
-
             //update giao dien
             listener?.invoke(bear.tam,dog.tam)
             postInvalidate()
@@ -78,7 +74,6 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val a = AxisConverter.width /2f
             val b = AxisConverter.heigh /2f
 
-
             // thuc hien nhan cac ma tranxyy
             val mtTinhTien = TwoDTrans.mtTinhTien(-a, -b)
             val mtXoay =
@@ -91,14 +86,10 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val newDogPoint = newDogMT.toPoint()
             dog.tam.x = newDogPoint.x
             dog.tam.y = newDogPoint.y
-
-            //update giao dien
-         //   postInvalidate()
         }
 
 
         // animate mau
-
         val colorFrom = Color.RED
         val colorTo = Color.BLUE
         val colorAnimation =
@@ -127,26 +118,11 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         va3.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
             wave.waveCount = animatedValue
-
-            //update giao dien
-         //   postInvalidate()
         }
 
         val animatorSet = AnimatorSet()
         animatorSet.play(va2).with(va).with(colorAnimation).with(colorAnimation2).with(va3)
         animatorSet.interpolator = LinearInterpolator()
         animatorSet.start()
-
-
-
-
     }
-
-
-
-
-
 }
-
-
-

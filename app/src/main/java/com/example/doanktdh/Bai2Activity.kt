@@ -52,7 +52,7 @@ class Bai2Activity : AppCompatActivity(), AddHinhCauDialog.AddHCListener,
     }
 
     override fun addHH(tam: Point3D, dai: Int, rong: Int, cao: Int) {
-        bai2.addHinhHop(tam.threeToTwoD(), dai, rong, cao)
+        bai2.addHinhHop(tam, dai, rong, cao)
         // add vao string info
         drawInfo += "HÌnh hộp: Tâm(X:${tam.x}, Y:${tam.y}, Z:${tam.z}) Cao: $cao, Dài: $dai, Rộng: ${rong}\n"
         main2Text.text = drawInfo
