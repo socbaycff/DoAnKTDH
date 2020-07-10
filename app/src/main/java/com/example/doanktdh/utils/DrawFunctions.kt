@@ -80,11 +80,11 @@ fun drawLineMidPoint(
 
 
         if (Math.abs(dx) > Math.abs(dy)) { // trường hợp bé hơn 45 độ: x đổi liên tục , y đổi có điều kiện
-            P = -dy - dx / 2
+            P = -2*dy - dx
             while (x > endX) {
                 x -= pixelSpacing
-                if (P > 0) P -= dy else {
-                    P += -dy - dx
+                if (P > 0) P -= 2*dy else {
+                    P += -2*dy - 2*dx
                     y += pixelSpacing
                 }
 
@@ -94,11 +94,11 @@ fun drawLineMidPoint(
 
             }
         } else {  // trường hợp lớn hơn 45 độ: y đổi liên tục, x đổi có điều kiện
-            P = -dx - dy / 2
+            P = -2*dx - dy
             while (y < endY) {
                 y += pixelSpacing
-                if (P < 0) P -= dx else {
-                    P += -dx - dy
+                if (P < 0) P -= 2*dx else {
+                    P += -2*dx - 2*dy
                     x -= pixelSpacing
                 }
                 if (pattern[counter++ % (pattern.size)]) {
@@ -110,13 +110,13 @@ fun drawLineMidPoint(
 
 
         if (Math.abs(dx) > Math.abs(dy)) {// trường hợp bé hơn 45 độ: x đổi liên tục , y đổi có điều kiện
-            P = dy - dx / 2
+            P = 2*dy - dx
             while (x < endX) {
                 x += pixelSpacing
                 if (P < 0) {
-                    P += dy
+                    P += 2*dy
                 } else {
-                    P += dy - dx
+                    P += 2*dy - 2*dx
                     y += pixelSpacing
                 }
                 // chấm điểm
@@ -125,11 +125,11 @@ fun drawLineMidPoint(
                 }
             }
         } else {    // trường hợp lớn hơn 45 độ: y đổi liên tục, x đổi có điều kiện
-            P = dx - dy / 2
+            P = 2*dx - dy
             while (y < endY) {
                 y += pixelSpacing
-                if (P < 0) P += dx else {
-                    P += dx - dy
+                if (P < 0) P += 2*dx else {
+                    P += 2*dx - 2*dy
                     x += pixelSpacing
                 }
                 if (pattern[counter++ % (pattern.size)]) {
@@ -222,12 +222,9 @@ fun drawEllipseDash(
     var counter = 0
 
 
-    val pattern: ArrayList<Boolean>
-    when (lineMode) {
-        LineMode.DASH -> pattern =
-            dashPattern
-        LineMode.SOLID -> pattern =
-            solidPattern
+    val pattern: ArrayList<Boolean> = when (lineMode) {
+        LineMode.DASH -> dashPattern
+        LineMode.SOLID -> solidPattern
     }
 
     // Khởi tạo các biến cho vùng 1
@@ -265,7 +262,9 @@ fun drawEllipseDash(
             - rx * rx * ry * ry)
 
     // vòng while vẽ vùng 2
+
     do {
+        if (y < 0) return
         // vẽ đối xừng 4 vùng
         canvas?.drawPoint(x + center_x, y + center_y, paint)
         canvas?.drawPoint(-x + center_x, y + center_y, paint)
@@ -296,13 +295,6 @@ fun drawEllipse(
     paint: Paint,
     canvas: Canvas?
 ) {
-    val pattern: ArrayList<Boolean>
-    when (lineMode) {
-        LineMode.DASH -> pattern =
-            dashPattern
-        LineMode.SOLID -> pattern =
-            solidPattern
-    }
 
     // Khởi tạo các biến cho vùng 1
     // P1 = y^2  + (1/4)(x^2) - (x^2)y

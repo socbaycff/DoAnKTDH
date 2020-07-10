@@ -6,9 +6,10 @@ class MaTran(var matrix: Array<FloatArray>) { // x,y,1
     // nhan ma tran
     operator fun times(maTran: MaTran) : MaTran{
         val other = maTran.matrix
-        val r1 = matrix.size
-        val c2 = other[0].size
-        val c1 = matrix[0].size
+        val r1 = matrix.size // so hang ma tran 1
+        val c1 = matrix[0].size // so cot ma tran 1
+        val c2 = other[0].size // so cot ma tran 2
+
         val product = Array(r1) { FloatArray(c2) }
         for (i in 0..r1 - 1) {
             for (j in 0..c2 - 1) {
@@ -25,8 +26,6 @@ class MaTran(var matrix: Array<FloatArray>) { // x,y,1
         val row1 = matrix[0]
         return PointF(row1[0],row1[1])
     }
-
-
 
 }
 // point 2d -> matrix

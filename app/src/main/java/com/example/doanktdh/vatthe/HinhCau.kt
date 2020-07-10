@@ -4,13 +4,15 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
+import com.example.doanktdh.point3d.Point3D
+import com.example.doanktdh.point3d.threeToTwoD
 import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.utils.LineMode
 import com.example.doanktdh.utils.drawCircle
 import com.example.doanktdh.utils.drawEllipseDash
 import kotlin.math.sqrt
 
-class HinhCau(tam: PointF,var radius: Int) : VatThe(tam) {
+class HinhCau(tam: Point3D,var radius: Int) : VatThe(AxisConverter.userToSys(tam.threeToTwoD())) {
     val paint =
         Paint().apply {
             color = Color.RED

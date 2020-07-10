@@ -26,8 +26,8 @@ object TwoDTrans {
 
     // xoay 1 goc angle
     fun mtXoay(angle: Float): MaTran {
-        return MaTran(Array<FloatArray>(3) {FloatArray(3)} ).apply {
-            val goc = angle.toFloat()
+        return MaTran(Array(3) {FloatArray(3)} ).apply {
+            val goc = angle
             val matrix = this.matrix
             matrix[0][0] = cos(goc)
             matrix[0][1] = sin(goc)

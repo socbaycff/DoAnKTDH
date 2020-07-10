@@ -19,11 +19,17 @@ import com.example.doanktdh.vatthe.ConCho
 import com.example.doanktdh.vatthe.ConGau
 import com.example.doanktdh.vatthe.Wave
 
+/**
+ * Class quản lý view bài 1 chứa 3 vật thể : Chó, Gấu, Sóng Âm
+ * - thực hiện animation animateView()
+ * - vẽ 3 đối tượng trong onDraw() của android
+ * - listener gửi vị trí của các vật thể cho activity
+ */
 
 class Bai1View(context: Context, attributes: AttributeSet): View(context,attributes) {
     var listener: ((PointF,PointF) -> Unit)? = null
 
-    val listVatThe = ArrayList<VatThe>()
+    val listVatThe = ArrayList<VatThe>() // danh sach cac vat the
     val dog = ConCho(PointF(1500f,300f))
     val bear = ConGau(PointF(900f,500f))
     val wave = Wave(PointF(500f,1000f),1)
@@ -57,7 +63,7 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
             val newBearPoint = newDogMT.toPoint()
             bear.tam.x = newBearPoint.x
             bear.tam.y = newBearPoint.y
-            //update giao dien
+            //update giao dien thong tin vi tri con cho con gau
             listener?.invoke(bear.tam,dog.tam)
             postInvalidate()
         }
@@ -117,9 +123,10 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         va3.repeatCount = ValueAnimator.INFINITE
         va3.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
-            wave.waveCount = animatedValue
+            wave.waveCount = animatedValue // thay doi so luong wave
         }
 
+        // ket hop tat ca animation tren
         val animatorSet = AnimatorSet()
         animatorSet.play(va2).with(va).with(colorAnimation).with(colorAnimation2).with(va3)
         animatorSet.interpolator = LinearInterpolator()

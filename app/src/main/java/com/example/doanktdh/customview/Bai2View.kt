@@ -9,15 +9,21 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
 import com.example.doanktdh.point3d.Point3D
+import com.example.doanktdh.point3d.threeToTwoD
 import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.vatthe.HinhCau
 import com.example.doanktdh.vatthe.HinhHop
 
+/**
+ * Class quản lý view bài 2 vẽ 2 đối tượng 3d: hình hôp , hình cầu
+ * - vẽ tất cả vật thể thuộc 2 loại trên (chứa trong danh sách vật thể) trong onDraw
+ * - xoá tất cả vật thể trong danh sách với hàm reset
+ */
 
 class Bai2View(context: Context, attributes: AttributeSet): View(context,attributes) {
 
-    private val listVatThe = ArrayList<VatThe>()
+    private val listVatThe = ArrayList<VatThe>() // danh sach vat the
 
     val paint =
         Paint().apply {
@@ -36,13 +42,10 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
     fun addHinhHop(tam: Point3D, dai: Int, rong: Int, cao: Int) {
         listVatThe.add(HinhHop(tam,dai,rong,cao))
         postInvalidate()
-
     }
 
-    fun addHinhCau(tam: PointF, radius: Int) {
-        val point =
-            AxisConverter.userToSys(tam) // doi truc toa do man hinh
-        listVatThe.add(HinhCau(point,radius))
+    fun addHinhCau(tam: Point3D, radius: Int) {
+        listVatThe.add(HinhCau(tam,radius))
         postInvalidate()
 
     }
@@ -50,7 +53,6 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         // ve truc x, y,z
-
         canvas?.drawLine(
             AxisConverter.width /2f,
             AxisConverter.heigh /2f, AxisConverter.width.toFloat(),
@@ -68,6 +70,8 @@ class Bai2View(context: Context, attributes: AttributeSet): View(context,attribu
         canvas?.drawText("Z", width/2f + 20,50f,textPain)
         canvas?.drawText("O", AxisConverter.width /2f + 10,
             AxisConverter.heigh /2f - 10,textPain)
+
+        // ve tat ca vat the trong danh sach
         listVatThe.forEach {
             it.draw(canvas!!)
         }

@@ -45,7 +45,7 @@ class Bai2Activity : AppCompatActivity(), AddHinhCauDialog.AddHCListener,
     }
 
     override fun addHC(tam: Point3D, radius: Int) {
-        bai2.addHinhCau(tam.threeToTwoD(), radius)
+        bai2.addHinhCau(tam, radius)
         // add vao string info
         drawInfo += "Hình cầu: Tâm(X:${tam.x},Y: ${tam.y},Z: ${tam.z}) Bán kính: $radius \n"
         main2Text.text = drawInfo

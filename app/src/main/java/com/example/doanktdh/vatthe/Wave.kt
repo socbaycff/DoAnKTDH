@@ -20,7 +20,6 @@ class Wave(tam: PointF, var waveCount: Int) : VatThe(tam) {
     override fun draw(canvas: Canvas) {
         for (i in 1..waveCount) {
             drawCircle(doRong*i,tam.x.toInt(),tam.y.toInt(),LineMode.SOLID,paint,canvas)
-
         }
     }
 
