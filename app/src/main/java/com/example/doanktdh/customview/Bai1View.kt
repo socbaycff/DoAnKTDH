@@ -1,23 +1,24 @@
 package com.example.doanktdh.customview
 
 
+
+import android.R.attr
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.PointF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.example.doanktdh.matran.toMatrix
 import com.example.doanktdh.utils.AxisConverter
 import com.example.doanktdh.utils.TwoDTrans
-import com.example.doanktdh.vatthe.VatThe
-import com.example.doanktdh.matran.toMatrix
 import com.example.doanktdh.vatthe.ConCho
 import com.example.doanktdh.vatthe.ConGau
+import com.example.doanktdh.vatthe.VatThe
 import com.example.doanktdh.vatthe.Wave
+
 
 /**
  * Class quản lý view bài 1 chứa 3 vật thể : Chó, Gấu, Sóng Âm
@@ -33,6 +34,13 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
     val dog = ConCho(PointF(1500f,300f))
     val bear = ConGau(PointF(900f,500f))
     val wave = Wave(PointF(500f,1000f),1)
+
+
+    val textPaint = Paint().apply {
+        textSize = 80f
+        color = Color.RED
+        isUnderlineText = true
+    }
     init {
         // add toan bo vat the vao list
         listVatThe.add(dog)
@@ -45,6 +53,9 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         listVatThe.forEach {
             it.draw(canvas!!)
         }
+
+        // draw ptit party
+        canvas?.drawText("SUCVAT Party",2000f,1000f,textPaint)
     }
 
     fun animateView() { // call trong luong khac
@@ -132,4 +143,6 @@ class Bai1View(context: Context, attributes: AttributeSet): View(context,attribu
         animatorSet.interpolator = LinearInterpolator()
         animatorSet.start()
     }
+
+
 }

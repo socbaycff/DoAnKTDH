@@ -28,7 +28,7 @@ class Bai1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bai1)
-        mp = MediaPlayer.create(applicationContext, R.raw.edit)
+        mp = MediaPlayer.create(applicationContext, R.raw.binz)
         mp.isLooping = true
         barVisualizer = musicvisual
         // check quyen truy cap audio
